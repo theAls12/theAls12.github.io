@@ -1,140 +1,359 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PROJECT ALS — Portfolio</title>
-    <meta name="description" content="Portfolio de diseño multimedia centrado en branding, audiovisual, editorial, motion y experiencias digitales." />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main>
-      <section id="top" class="hero section-full">
-        <div class="grid-bg"></div>
-        <header class="header">
-          <a href="#top" class="brand">PROJECT ALS</a>
-          <nav>
-            <a href="#work">Work</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-          </nav>
-        </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alex Lorente — Visual Portfolio</title>
+  <meta name="description" content="Portfolio de Alex Lorente, diseñador visual y multimedia especializado en identidad, audiovisual, motion, editorial y experiencias digitales." />
 
-        <div class="hero-content reveal">
-          <div class="hero-title-block">
-            <div class="pill">✦ Visual Designer / Creative Direction</div>
-            <h1>Visual identity for culture, motion & digital spaces.</h1>
-          </div>
+  <style>
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:#f7f4ee;color:#151515;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
+    a{color:inherit;text-decoration:none}
+    main{overflow:hidden}
+    ::selection{background:#ff5a1f;color:#fff}
 
-          <aside class="hero-copy">
-            <p>Portfolio de diseño multimedia centrado en branding, audiovisual, editorial, motion y experiencias digitales.</p>
-            <div class="buttons">
-              <a class="btn primary" href="#work">Ver proyectos</a>
-              <a class="btn ghost" href="mailto:hello@projectals.com">Contactar</a>
-            </div>
-          </aside>
-        </div>
+    :root{
+      --bg:#f7f4ee;
+      --paper:#fffaf2;
+      --ink:#151515;
+      --muted:rgba(0,0,0,.52);
+      --line:rgba(0,0,0,.12);
+      --orange:#ff5a1f;
+    }
 
-        <div class="hero-meta">
-          <p>Barcelona based</p>
-          <p>Branding / Motion / Editorial</p>
-          <p>Selected work 2022—2026</p>
-        </div>
-      </section>
+    h1,h2,h3,p{margin:0}
+    .section-full{min-height:100vh}
 
-      <section id="work" class="work-section">
-        <div class="section-heading reveal">
-          <div>
-            <p class="eyebrow">Selected Work</p>
-            <h2>Curated visual systems.</h2>
-          </div>
-          <p>Una selección enfocada en percepción visual: menos proyectos, más dirección artística, más coherencia y mejor presentación.</p>
-        </div>
+    .header{position:fixed;left:0;right:0;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:22px 40px 16px;border-bottom:1px solid rgba(0,0,0,.08);background:rgba(247,244,238,.84);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);text-transform:uppercase}
+    .brand{font-size:16px;line-height:1;font-weight:900;letter-spacing:-.06em;color:rgba(0,0,0,.62);transition:color .22s ease;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;text-transform:uppercase}
+    .brand:hover{color:var(--orange)}
+    .header nav{display:flex;gap:34px;align-items:center}
+    .header nav a{position:relative;padding-bottom:7px;color:rgba(0,0,0,.58);transition:color .2s ease;font-size:12px;font-weight:500;letter-spacing:.14em}
+    .header nav a:hover,.header nav a.active{color:var(--ink)}
+    .header nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--orange);transform:scaleX(0);transform-origin:left center;transition:transform .22s ease}
+    .header nav a:hover::after,.header nav a.active::after{transform:scaleX(1)}
+    .nav-pill{display:none}
 
-        <div class="projects-grid">
-          <article class="project-card large reveal">
-            <div class="project-visual">
-              <div class="glow glow-a"></div><div class="glow glow-b"></div><div class="texture"></div>
-              <div class="project-top"><span>01</span><span>2026</span></div>
-              <div class="project-title"><span>Nuevo proyecto estratégico</span><h3>Visual Identity for Music & Culture</h3></div>
-            </div>
-            <div class="project-info"><p>Branding / Editorial / Motion</p><div><p>Sistema visual contemporáneo para eventos, artistas y espacios culturales. Dirección gráfica, piezas sociales, cartelería y recursos animados.</p><span>↗</span></div></div>
-          </article>
+    .hero{position:relative;display:flex;flex-direction:column;padding:0 40px 32px;background:var(--bg)}
+    .grid-bg{position:absolute;inset:0;opacity:.035;background-image:linear-gradient(to right,#000 1px,transparent 1px),linear-gradient(to bottom,#000 1px,transparent 1px);background-size:56px 56px;pointer-events:none}
+    .hero-content{position:relative;z-index:1;display:grid;grid-template-columns:1fr .45fr;gap:64px;align-items:end;flex:1;padding:180px 0 72px}
+    .pill{display:inline-flex;align-items:center;gap:14px;margin-bottom:34px;font-size:12px;line-height:1;text-transform:uppercase;letter-spacing:.18em;color:rgba(0,0,0,.58)}
+    .pill:before{content:"";width:7px;height:7px;border-radius:999px;background:var(--orange)}
+    .hero h1{max-width:1160px;font-size:9.2vw;line-height:.84;letter-spacing:-.08em;text-transform:uppercase;font-weight:500}
+    .hero-copy{max-width:440px;justify-self:end;margin-bottom:12px}
+    .hero-copy p{font-size:20px;line-height:1.5;color:rgba(0,0,0,.66);font-weight:400}
+    .buttons{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+    .btn{border-radius:999px;padding:13px 20px;font-size:14px;font-weight:500;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--ink);transition:background .2s ease,color .2s ease,border-color .2s ease}
+    .primary{background:var(--orange);border-color:var(--orange);color:#fff}
+    .primary:hover{background:#e84e17;border-color:#e84e17}
+    .ghost{background:var(--ink);border-color:var(--ink);color:#fff}
+    .ghost:hover{background:#000;border-color:#000}
+    .hero-meta{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--line);padding-top:16px;font-size:12px;text-transform:uppercase;letter-spacing:.18em;color:var(--muted);overflow:hidden}
+    .hero-meta p:nth-child(3){text-align:right;position:relative}
+    .hero-meta strong{color:var(--ink);font-weight:500}
+    .meta-watermark{position:absolute;right:0;top:-42px;font-size:120px;font-weight:700;letter-spacing:-.08em;opacity:.04;pointer-events:none}
 
-          <article class="project-card medium reveal">
-            <div class="project-visual">
-              <div class="glow glow-a"></div><div class="glow glow-b"></div><div class="texture"></div>
-              <div class="project-top"><span>02</span><span>2025</span></div>
-              <div class="project-title"><span>Trabajo real</span><h3>Live Sessions & Concert Films</h3></div>
-            </div>
-            <div class="project-info"><p>Audiovisual / Reels / Art Direction</p><div><p>Cobertura audiovisual de conciertos, piezas verticales, fotografía de ambiente y narrativa visual para artistas y salas.</p><span>↗</span></div></div>
-          </article>
+    .ticker{margin:0 40px 40px;border-top:1px solid var(--line);overflow:hidden;background:transparent;color:var(--ink)}
+    .ticker-track{display:flex;width:max-content;animation:ticker 28s linear infinite}
+    .ticker span{display:block;padding:18px 28px;font-size:12px;text-transform:uppercase;letter-spacing:.22em;color:rgba(0,0,0,.42)}
+    .ticker span:before{content:"/";color:var(--orange);margin-right:28px}
+    @keyframes ticker{to{transform:translateX(-50%)}}
 
-          <article class="project-card medium reveal">
-            <div class="project-visual">
-              <div class="glow glow-a"></div><div class="glow glow-b"></div><div class="texture"></div>
-              <div class="project-top"><span>03</span><span>2026</span></div>
-              <div class="project-title"><span>Dirección artística</span><h3>Editorial Posters</h3></div>
-            </div>
-            <div class="project-info"><p>Poster Design / Typography</p><div><p>Exploraciones gráficas basadas en tipografía, composición editorial, ritmo visual y dirección artística contemporánea.</p><span>↗</span></div></div>
-          </article>
+    .work-section{padding:112px 40px 80px}
+    .section-heading{display:grid;grid-template-columns:1fr .42fr;gap:64px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:32px;margin-bottom:28px}
+    .eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.22em;color:var(--orange);margin-bottom:14px;font-weight:500}
+    .section-heading h2,.dark-box h2,.about h2{max-width:900px;font-size:76px;line-height:.92;letter-spacing:-.06em;text-transform:uppercase;font-weight:500}
+    .section-heading>p{max-width:430px;color:rgba(0,0,0,.58);line-height:1.6}
 
-          <article class="project-card small reveal">
-            <div class="project-visual compact">
-              <div class="glow glow-a"></div><div class="texture"></div>
-              <div class="project-top"><span>04</span><span>2022–2025</span></div>
-              <div class="project-title"><span>Archivo comercial curado</span><h3>Packaging & Brand Applications</h3></div>
-            </div>
-            <div class="project-info"><p>Packaging / Commercial Design</p><div><p>Selección curada de proyectos comerciales de packaging y branding, presentados como aplicaciones visuales dentro de un sistema gráfico.</p><span>↗</span></div></div>
-          </article>
+    .projects-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;margin-top:36px}
+    .project-card{position:relative;background:#fff;border:1px solid var(--line);border-radius:28px;overflow:hidden;transition:transform .25s ease,border-color .25s ease,background .25s ease}
+    .project-card:hover{transform:translateY(-4px);border-color:rgba(255,90,31,.22);background:#fffdf9}
+    .large{grid-column:span 12}
+    .medium{grid-column:span 6}
+    .small{grid-column:span 4}
 
-          <article class="project-card small reveal">
-            <div class="project-visual compact">
-              <div class="glow glow-a"></div><div class="texture"></div>
-              <div class="project-top"><span>05</span><span>2026</span></div>
-              <div class="project-title"><span>Background técnico</span><h3>Digital Experiences</h3></div>
-            </div>
-            <div class="project-info"><p>Web / Interactive / Multimedia</p><div><p>Experiencias digitales con sensibilidad visual y comprensión técnica: landing pages, interfaces, prototipos y sistemas interactivos.</p><span>↗</span></div></div>
-          </article>
-        </div>
-      </section>
+    .project-visual,.project-visual.compact,.project-visual.light{position:relative;min-height:340px;background:#151515;color:#fff;padding:26px;overflow:hidden;border:0}
+    .project-visual.light{background:#efebe3;color:var(--ink)}
+    .project-visual.light .project-top{color:rgba(0,0,0,.45)}
+    .project-visual.light .project-title span{color:var(--orange)}
+    .project-visual.light .project-title h3{color:var(--ink)}
 
-      <section class="capabilities reveal">
-        <div class="dark-box">
-          <div>
-            <p class="eyebrow orange">Capabilities</p>
-            <h2>Design with audiovisual attitude.</h2>
-          </div>
-          <div class="services">
-            <div>Brand identity</div><div>Editorial design</div><div>Motion graphics</div><div>Audiovisual content</div><div>Poster systems</div><div>Digital experiences</div><div>Art direction</div><div>Social media visuals</div>
-          </div>
-        </div>
-      </section>
+    .glow,.texture,.paper-lines{display:block}
+    .glow{position:absolute;border-radius:999px;filter:blur(90px);opacity:.55}
+    .glow-a{left:-15%;top:-20%;width:60%;height:70%;background:var(--orange)}
+    .glow-b{right:-10%;bottom:-20%;width:45%;height:50%;background:rgba(255,255,255,.12)}
+    .texture{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.06),transparent 40%)}
+    .paper-lines{position:absolute;inset:0;opacity:.12;background-image:linear-gradient(to right,#000 1px,transparent 1px),linear-gradient(to bottom,#000 1px,transparent 1px);background-size:38px 38px}
 
-      <section id="about" class="about reveal">
+    .project-top{position:relative;z-index:2;display:flex;justify-content:space-between;font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:rgba(255,255,255,.48)}
+    .project-title{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;height:100%;padding-top:90px}
+    .compact .project-title{padding-top:60px}
+    .project-title span{display:inline-flex;align-self:flex-start;margin-bottom:14px;font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:rgba(255,255,255,.72)}
+    .project-title h3{font-size:56px;line-height:.9;letter-spacing:-.06em;text-transform:uppercase;font-weight:500;max-width:760px;color:#fff}
+    .small .project-title h3{font-size:40px}
+
+    .project-info{display:grid;grid-template-columns:.38fr .62fr;gap:28px;padding:24px 26px 26px;grid-column:auto}
+    .project-info>p{font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:rgba(0,0,0,.42)}
+    .project-info div{display:flex;justify-content:space-between;gap:24px}
+    .project-info div p{line-height:1.6;color:rgba(0,0,0,.62);max-width:520px}
+    .project-info span{font-size:18px;color:var(--orange)}
+
+    .capabilities{padding:80px 40px}
+    .dark-box{background:transparent;color:var(--ink);border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0;padding:44px 0;display:grid;grid-template-columns:.55fr 1fr;gap:64px;position:relative;overflow:visible}
+    .dark-box:after{display:none}
+    .orange{color:var(--orange)}
+    .services{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--line)}
+    .services div{border:0;border-bottom:1px solid var(--line);background:transparent;border-radius:0;padding:18px 0;font-size:18px;color:rgba(0,0,0,.72)}
+    .services div:before{content:"•";color:var(--orange);margin-right:10px}
+
+    .about{display:grid;grid-template-columns:.55fr 1fr;gap:64px;margin:40px 40px 96px;padding:48px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .about-copy{max-width:900px;display:grid;gap:24px}
+    .about-copy p{font-size:24px;line-height:1.45;color:rgba(0,0,0,.68);letter-spacing:-.02em}
+    .about-list{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:12px;border-top:1px solid var(--line)}
+    .about-list div{border:0;border-bottom:1px solid var(--line);border-radius:0;padding:18px 0;background:transparent;font-size:14px;line-height:1.5;color:rgba(0,0,0,.58)}
+
+    .contact{padding:0 40px 40px}
+    .contact-box{background:var(--ink);color:#fff;border-radius:0;padding:40px;display:grid;grid-template-columns:1fr .48fr;gap:64px;align-items:end}
+    .contact h2{font-size:8vw;line-height:.88;letter-spacing:-.07em;text-transform:uppercase;font-weight:500}
+    .contact p{font-size:19px;line-height:1.5;color:rgba(255,255,255,.74)}
+    .white{background:#fff;color:var(--ink);border-color:#fff}
+    .orange-outline{border:1px solid var(--orange);color:#fff;background:transparent}
+    .orange-outline:hover{background:var(--orange);color:#fff}
+
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    @media(max-width:860px){
+      .ticker{margin-left:20px!important;margin-right:20px!important}
+      .hero,.work-section,.capabilities,.contact{padding-left:20px;padding-right:20px}
+      .header{padding-left:20px;padding-right:20px}
+      .header nav{display:none}
+      .hero-content,.section-heading,.dark-box,.about,.contact-box{grid-template-columns:1fr;gap:32px}
+      .hero-content{padding:130px 0 56px}
+      .hero h1{font-size:15vw}
+      .hero-copy{justify-self:start}
+      .hero-meta{grid-template-columns:1fr}
+      .hero-meta p:nth-child(n+2){display:none}
+      .section-heading h2,.dark-box h2,.about h2{font-size:52px}
+      .project-card{grid-template-columns:1fr;gap:18px}
+      .large,.medium,.small{grid-column:span 12}
+      .project-title h3,.small .project-title h3{font-size:38px}
+      .project-info{grid-template-columns:1fr;gap:16px;padding:20px}
+      .services,.about-list{grid-template-columns:1fr}
+      .about{margin-left:20px;margin-right:20px}
+      .about-copy p{font-size:20px}
+      .contact h2{font-size:58px}
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <section id="top" class="hero section-full">
+      <div class="grid-bg"></div>
+
+      <header class="header">
+        <a href="#top" class="brand">ALEX LORENTE</a>
+        <nav aria-label="Navegación principal">
+          <span class="nav-pill" aria-hidden="true"></span>
+          <a href="#work">Proyectos</a>
+          <a href="#about">Perfil</a>
+          <a href="#contact">Contacto</a>
+        </nav>
+      </header>
+
+      <div class="hero-content reveal">
         <div>
-          <p class="eyebrow">About</p>
-          <h2>Not a classic portfolio.</h2>
+          <div class="pill">Visual Designer · Barcelona</div>
+          <h1>Diseño visual<br>para cultura,<br>motion y digital.</h1>
         </div>
-        <div class="about-copy">
-          <p>Soy diseñador multimedia y visual designer. Trabajo entre identidad visual, contenido audiovisual, diseño editorial, motion y experiencias digitales.</p>
-          <p>Mi background técnico en Unity, web y multimedia me permite entender sistemas interactivos, pero el foco principal de este portfolio es la dirección visual contemporánea.</p>
-        </div>
-      </section>
 
-      <section id="contact" class="contact reveal">
-        <div class="contact-box">
-          <h2>Let’s build something visual.</h2>
-          <div>
-            <p>Disponible para proyectos de branding, audiovisual, motion, editorial y dirección visual para marcas, artistas y espacios culturales.</p>
-            <div class="buttons">
-              <a class="btn white" href="mailto:hello@projectals.com">✉ hello@projectals.com</a>
-              <a class="btn orange-outline" href="#work">▶ Ver selección</a>
-            </div>
+        <div class="hero-copy">
+          <p>Branding, audiovisual, diseño editorial y experiencias digitales.</p>
+          <div class="buttons">
+            <a class="btn primary" href="#work">Ver proyectos</a>
+            <a class="btn ghost" href="mailto:hello@projectals.com">Contacto</a>
           </div>
         </div>
-      </section>
-    </main>
-    <script src="./assets/script.js"></script>
-  </body>
+      </div>
+
+      <div class="hero-meta">
+        <p style="font-weight:700;">ALEX LORENTE</p>
+        <p>Selected Work</p>
+        <p>2022 — 2026<span class="meta-watermark">ALS</span></p>
+      </div>
+    </section>
+
+    <section id="work" class="work-section">
+      <div class="section-heading reveal">
+        <div>
+          <p class="eyebrow">Selected Work</p>
+          <h2>Proyectos con criterio visual.</h2>
+        </div>
+        <p>Una selección enfocada en percepción visual: menos piezas, mejor dirección artística, más intención y una lectura más profesional.</p>
+      </div>
+
+      <div class="projects-grid">
+        <article class="project-card large reveal">
+          <div class="project-visual">
+            <div class="glow glow-a"></div><div class="glow glow-b"></div><div class="texture"></div>
+            <div class="project-top"><span>01</span><span>2026</span></div>
+            <div class="project-title"><span>Proyecto estratégico</span><h3>Identidad visual para música y cultura</h3></div>
+          </div>
+          <div class="project-info"><p>Branding / Editorial / Motion</p><div><p>Sistema visual contemporáneo para eventos, artistas y espacios culturales. Dirección gráfica, piezas sociales, cartelería y recursos animados.</p><span>↗</span></div></div>
+        </article>
+
+        <article class="project-card medium reveal">
+          <div class="project-visual light">
+            <div class="paper-lines"></div>
+            <div class="project-top"><span>02</span><span>2025</span></div>
+            <div class="project-title"><span>Trabajo real</span><h3>Conciertos, reels y piezas audiovisuales</h3></div>
+          </div>
+          <div class="project-info"><p>Audiovisual / Reels / Art Direction</p><div><p>Cobertura de conciertos, piezas verticales, fotografía de ambiente y narrativa visual para artistas, salas y proyectos culturales.</p><span>↗</span></div></div>
+        </article>
+
+        <article class="project-card medium reveal">
+          <div class="project-visual">
+            <div class="glow glow-a"></div><div class="glow glow-b"></div><div class="texture"></div>
+            <div class="project-top"><span>03</span><span>2026</span></div>
+            <div class="project-title"><span>Dirección artística</span><h3>Sistemas editoriales y posters</h3></div>
+          </div>
+          <div class="project-info"><p>Poster Design / Typography</p><div><p>Exploraciones gráficas basadas en tipografía, composición editorial, ritmo visual, imagen y dirección artística contemporánea.</p><span>↗</span></div></div>
+        </article>
+
+        <article class="project-card small reveal">
+          <div class="project-visual compact light">
+            <div class="paper-lines"></div>
+            <div class="project-top"><span>04</span><span>2022–2025</span></div>
+            <div class="project-title"><span>Archivo curado</span><h3>Packaging & aplicaciones de marca</h3></div>
+          </div>
+          <div class="project-info"><p>Packaging / Commercial Design</p><div><p>Selección de trabajos comerciales recontextualizados como aplicaciones visuales dentro de un sistema gráfico.</p><span>↗</span></div></div>
+        </article>
+
+        <article class="project-card small reveal">
+          <div class="project-visual compact">
+            <div class="glow glow-a"></div><div class="texture"></div>
+            <div class="project-top"><span>05</span><span>2026</span></div>
+            <div class="project-title"><span>Background técnico</span><h3>Experiencias digitales</h3></div>
+          </div>
+          <div class="project-info"><p>Web / Interactive / Multimedia</p><div><p>Landings, interfaces, prototipos y experiencias interactivas con sensibilidad gráfica y comprensión técnica.</p><span>↗</span></div></div>
+        </article>
+
+        <article class="project-card small reveal">
+          <div class="project-visual compact">
+            <div class="glow glow-a"></div><div class="glow glow-b"></div><div class="texture"></div>
+            <div class="project-top"><span>06</span><span>En segundo plano</span></div>
+            <div class="project-title"><span>Multimedia</span><h3>Game & interactive design</h3></div>
+          </div>
+          <div class="project-info"><p>Unity / Prototyping / UI</p><div><p>El mundo de videojuegos aparece como base técnica y diferencial, no como el foco principal del portfolio.</p><span>↗</span></div></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="capabilities reveal">
+      <div class="dark-box">
+        <div>
+          <p class="eyebrow orange">Capabilities</p>
+          <h2>Diseño con actitud audiovisual.</h2>
+        </div>
+        <div class="services">
+          <div>Identidad visual</div><div>Diseño editorial</div><div>Motion graphics</div><div>Contenido audiovisual</div><div>Sistemas de posters</div><div>Experiencias digitales</div><div>Dirección de arte</div><div>Visuales para redes</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about reveal">
+      <div>
+        <p class="eyebrow">Perfil</p>
+        <h2>No es un portfolio clásico.</h2>
+      </div>
+      <div class="about-copy">
+        <p>Soy diseñador multimedia y visual designer. Trabajo entre identidad visual, contenido audiovisual, diseño editorial, motion y experiencias digitales.</p>
+        <p>Mi background técnico en Unity, web y multimedia me permite entender sistemas interactivos, pero el foco principal de este portfolio es la dirección visual contemporánea.</p>
+        <div class="about-list">
+          <div>Diseño con intención: jerarquía, ritmo, contraste, tono y coherencia visual.</div>
+          <div>Perfil híbrido: sensibilidad gráfica, cultura audiovisual y capacidad técnica para llevar ideas a producción.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact reveal">
+      <div class="contact-box">
+        <h2>Construyamos algo visual.</h2>
+        <div>
+          <p>Disponible para proyectos de branding, audiovisual, motion, editorial y dirección visual para marcas, artistas y espacios culturales.</p>
+          <div class="buttons">
+            <a class="btn white" href="mailto:hello@projectals.com">hello@projectals.com</a>
+            <a class="btn orange-outline" href="#work">Ver selección</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>Branding</span><span>Motion</span><span>Editorial</span><span>Audiovisual</span><span>Digital Experiences</span><span>Visual Systems</span>
+        <span>Branding</span><span>Motion</span><span>Editorial</span><span>Audiovisual</span><span>Digital Experiences</span><span>Visual Systems</span>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const revealElements = document.querySelectorAll('.reveal');
+      const navLinks = document.querySelectorAll('.header nav a');
+      const sections = document.querySelectorAll('#work,#about,#contact');
+
+      if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+
+        revealElements.forEach((element) => revealObserver.observe(element));
+      } else {
+        revealElements.forEach((element) => element.classList.add('visible'));
+      }
+
+      function updateActiveSection() {
+        let currentSection = null;
+        const triggerPoint = window.innerHeight * 0.38;
+
+        sections.forEach((section) => {
+          const rect = section.getBoundingClientRect();
+
+          if (rect.top <= triggerPoint && rect.bottom >= triggerPoint) {
+            currentSection = section.id;
+          }
+        });
+
+        navLinks.forEach((link) => {
+          const target = link.getAttribute('href').replace('#', '');
+          link.classList.toggle('active', target === currentSection);
+        });
+      }
+
+      function runSmokeTests() {
+        console.assert(document.querySelector('.header'), 'Header exists');
+        console.assert(document.querySelectorAll('.header nav a').length === 3, 'Navbar has 3 links');
+        console.assert(document.querySelector('#work'), 'Work section exists');
+        console.assert(document.querySelector('#about'), 'About section exists');
+        console.assert(document.querySelector('#contact'), 'Contact section exists');
+      }
+
+      window.addEventListener('scroll', updateActiveSection, { passive: true });
+      window.addEventListener('resize', updateActiveSection);
+      window.addEventListener('load', () => {
+        updateActiveSection();
+        runSmokeTests();
+      });
+    })();
+  </script>
+</body>
 </html>
