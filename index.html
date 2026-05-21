@@ -65,13 +65,13 @@
     .nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform var(--ease)}
 
     .hero{position:relative;min-height:100svh;display:grid;grid-template-rows:1fr auto;padding:0 var(--pad) 24px;background:#050505;color:#fff;overflow:hidden}
-    .hero-video-stage,.hero-blur,.hero-overlay{position:absolute;inset:0;width:100%;height:100%}
+    .hero-video-stage,.hero-noise,.hero-overlay{position:absolute;inset:0;width:100%;height:100%}
     .hero-video-stage{overflow:hidden;background:#111;top:-4px;left:-4px;width:calc(100% + 8px);height:calc(100% + 8px)}
-    .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center calc(50% + 80px);background:#111;pointer-events:none;opacity:0;transition:none}
+    .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center calc(50% + 80px);background:#111;pointer-events:none;opacity:0;transition:none;transform:scale(1.04);filter:contrast(.92) saturate(.88) brightness(.82)}
     .hero-video.is-active{opacity:1}
     .hero-video.is-next{opacity:0}
-    .hero-blur{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);pointer-events:none}
-    .hero-overlay{background:rgba(0,0,0,.42)}
+    .hero-noise{opacity:.18;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");mix-blend-mode:soft-light}
+    .hero-overlay{background:rgba(0,0,0,.46)}
     .hero-content{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,460px);align-items:center;gap:clamp(48px,7vw,128px);padding-top:76px}
     .pill{margin-bottom:28px;font-size:14px;color:#fff}
     .hero h1{max-width:1040px;font-size:var(--fs-hero);line-height:.84;letter-spacing:-.078em;font-weight:500;color:#fff;transform:translateX(-.082em)}
@@ -152,7 +152,7 @@
           <source src="assets/hero-video-02.mp4" type="video/mp4">
         </video>
       </div>
-      <div class="hero-blur"></div>
+      <div class="hero-noise"></div>
       <div class="hero-overlay"></div>
 
       <header class="header">
