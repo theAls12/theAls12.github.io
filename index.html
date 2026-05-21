@@ -70,7 +70,7 @@
     .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center calc(50% + 80px);background:#111;pointer-events:none;opacity:0;transition:none}
     .hero-video.is-active{opacity:1}
     .hero-video.is-next{opacity:0}
-    .hero-overlay{background:linear-gradient(120deg,rgba(0,0,0,.84),rgba(0,0,0,.54) 48%,rgba(0,0,0,.78))}
+    .hero-overlay{background:rgba(0,0,0,.42)}
     .hero-content{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,460px);align-items:center;gap:clamp(48px,7vw,128px);padding-top:76px}
     .pill{margin-bottom:28px;font-size:14px;color:#fff}
     .hero h1{max-width:1040px;font-size:var(--fs-hero);line-height:.84;letter-spacing:-.078em;font-weight:500;color:#fff;transform:translateX(-.082em)}
@@ -147,7 +147,7 @@
         <video class="hero-video is-active" autoplay muted playsinline preload="auto" poster="assets/hero-poster.jpg">
           <source src="assets/hero-video-01.mp4" type="video/mp4">
         </video>
-        <video class="hero-video is-next" muted playsinline preload="auto">
+        <video class="hero-video is-next" muted playsinline preload="metadata">
           <source src="assets/hero-video-02.mp4" type="video/mp4">
         </video>
       </div>
@@ -243,6 +243,7 @@
       if(videos.length<2)return;
 
       let current=0;
+      let isSwapping=false;
 
       videos.forEach(video=>{
         video.muted=true;
@@ -250,32 +251,69 @@
         video.loop=false;
       });
 
+      function nextIndex(){
+        return (current+1)%videos.length;
+      }
+
+      function prepareVideo(index){
+        const video=videos[index];
+        video.preload='auto';
+        if(video.readyState<2)video.load();
+      }
+
       function playVideo(index){
         const video=videos[index];
         video.currentTime=0;
         video.play().catch(()=>{});
+        prepareVideo((index+1)%videos.length);
       }
 
-      function swapVideo(){
-        const next=(current+1)%videos.length;
+      function doSwap(next){
+        const previous=current;
 
-        videos[current].classList.remove('is-active');
-        videos[current].classList.add('is-next');
-        videos[current].pause();
+        videos[previous].classList.remove('is-active');
+        videos[previous].classList.add('is-next');
+        videos[previous].pause();
 
         videos[next].classList.add('is-active');
         videos[next].classList.remove('is-next');
-        playVideo(next);
 
         current=next;
+        isSwapping=false;
+        playVideo(current);
+      }
+
+      function swapVideo(){
+        if(isSwapping)return;
+        isSwapping=true;
+
+        const next=nextIndex();
+        const nextVideo=videos[next];
+        prepareVideo(next);
+
+        if(nextVideo.readyState>=2){
+          doSwap(next);
+          return;
+        }
+
+        nextVideo.addEventListener('canplay',()=>doSwap(next),{once:true});
+        nextVideo.addEventListener('error',()=>{
+          isSwapping=false;
+          playVideo(current);
+        },{once:true});
       }
 
       videos.forEach((video,index)=>{
+        video.addEventListener('play',()=>{
+          if(index===current)prepareVideo(nextIndex());
+        });
+
         video.addEventListener('ended',()=>{
           if(index===current)swapVideo();
         });
       });
 
+      prepareVideo(1);
       playVideo(current);
     }
 
