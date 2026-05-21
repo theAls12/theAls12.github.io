@@ -171,8 +171,10 @@
       .hero-copy p br{display:none}
       .hero-meta{grid-template-columns:1fr 1fr}
       .section,.contact{padding-left:var(--page-pad);padding-right:var(--page-pad)}
-      .section-heading,.about,.contact-box{grid-template-columns:1fr;gap:32px}
-      .section-heading h2,.about h2{font-size:52px}
+      .section-heading,.about,.contact-box{grid-template-columns:1fr;gap:24px}
+      .section-heading{align-items:start;padding-bottom:24px;margin-bottom:28px}
+      .section-heading>p{justify-self:start;max-width:100%;font-size:15px;line-height:1.55}
+      .section-heading h2,.about h2{font-size:clamp(42px,12vw,52px);line-height:.96;letter-spacing:-.055em}
       .large,.medium,.small{grid-column:span 12}
       .project-title h3,.small .project-title h3{font-size:38px}
       .project-info{grid-template-columns:1fr;gap:16px;padding:20px}
@@ -232,7 +234,7 @@
       <div class="section-heading reveal">
         <div>
           <p class="eyebrow">Selected Work</p>
-          <h2>Trabajos<br>seleccionados.</h2>
+          <h2>Trabajos<br>seleccionados</h2>
         </div>
         <p>Una selección de proyectos visuales, piezas editoriales, contenido audiovisual y sistemas gráficos.</p>
       </div>
@@ -297,7 +299,7 @@
     <section id="about" class="about reveal">
       <div>
         <p class="eyebrow">Perfil</p>
-        <h2>Diseñador visual y multimedia.</h2>
+        <h2>Diseñador visual y multimedia</h2>
       </div>
       <div class="about-copy">
         <p>Soy Alex Lorente, diseñador visual y multimedia. Trabajo entre diseño gráfico, audiovisual, editorial, motion y experiencias digitales.</p>
@@ -337,7 +339,7 @@
 
     <section id="contact" class="contact reveal">
       <div class="contact-box">
-        <h2>Hagamos algo visual.</h2>
+        <h2>Hagamos algo visual</h2>
         <div>
           <p>Disponible para proyectos de diseño gráfico, audiovisual, motion, editorial y dirección visual.</p>
           <div class="buttons">
