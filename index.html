@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Alex Lorente — Visual Portfolio</title>
-  <meta name="description" content="Portfolio de Alex Lorente, diseñador visual y multimedia especializado en identidad, audiovisual, motion, editorial y experiencias digitales." />
+  <meta name="description" content="Portfolio visual de Alex Lorente. Diseño gráfico, dirección visual, audiovisual, motion y experiencias digitales." />
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
@@ -13,7 +13,7 @@
     body{margin:0;background:#f7f4ee;color:#151515;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
     a{color:inherit;text-decoration:none}
     main{overflow:hidden}
-    ::selection{background:#ff5a1f;color:#fff}
+    ::selection{background:#ff8c00;color:#fff}
 
     :root{
       --bg:#f7f4ee;
@@ -21,37 +21,39 @@
       --ink:#151515;
       --muted:rgba(0,0,0,.52);
       --line:rgba(0,0,0,.12);
-      --orange:#ff5a1f;
+      --orange:#ff8c00;
+      --soft-orange:rgba(255,140,0,.12);
     }
 
     h1,h2,h3,p{margin:0}
     .section-full{min-height:100vh}
 
     .header{position:fixed;left:0;right:0;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:22px 40px 16px;border-bottom:1px solid rgba(0,0,0,.08);background:rgba(247,244,238,.84);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);text-transform:uppercase}
-    .brand{font-size:16px;line-height:1;font-weight:900;letter-spacing:-.06em;color:rgba(0,0,0,.62);transition:color .22s ease;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;text-transform:uppercase;-webkit-font-smoothing:antialiased}
+    .brand{font-size:16px;line-height:1;font-weight:900;letter-spacing:-.055em;color:rgba(0,0,0,.64);transition:color .22s ease;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;text-transform:uppercase;-webkit-font-smoothing:antialiased}
     .brand:hover{color:var(--orange)}
     .header nav{display:flex;gap:34px;align-items:center}
-    .header nav a{position:relative;padding-bottom:7px;color:rgba(0,0,0,.58);transition:color .2s ease;font-size:12px;font-weight:500;letter-spacing:.14em}
+    .header nav a{position:relative;padding-bottom:7px;color:rgba(0,0,0,.56);transition:color .2s ease;font-size:12px;font-weight:500;letter-spacing:.13em}
     .header nav a:hover,.header nav a.active{color:var(--ink)}
-    .header nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--orange);transform:scaleX(0);transform-origin:left center;transition:transform .22s ease}
+    .header nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--orange);opacity:.85;transform:scaleX(0);transform-origin:left center;transition:transform .22s ease}
     .header nav a:hover::after,.header nav a.active::after{transform:scaleX(1)}
     .nav-pill{display:none}
 
-    .hero{position:relative;display:flex;flex-direction:column;padding:0 40px 32px;background:var(--bg)}
+    .hero{position:relative;display:flex;flex-direction:column;justify-content:space-between;min-height:100svh;padding:0 40px 24px;background:var(--bg);overflow:hidden}
     .grid-bg{position:absolute;inset:0;opacity:.035;background-image:linear-gradient(to right,#000 1px,transparent 1px),linear-gradient(to bottom,#000 1px,transparent 1px);background-size:56px 56px;pointer-events:none}
-    .hero-content{position:relative;z-index:1;display:grid;grid-template-columns:1fr .45fr;gap:64px;align-items:end;flex:1;padding:180px 0 72px}
-    .pill{display:inline-flex;align-items:center;gap:14px;margin-bottom:34px;font-size:12px;line-height:1;text-transform:uppercase;letter-spacing:.18em;color:rgba(0,0,0,.58)}
-    .pill:before{content:"";width:7px;height:7px;border-radius:999px;background:var(--orange)}
-    .hero h1{max-width:1160px;font-size:9.2vw;line-height:.84;letter-spacing:-.08em;text-transform:uppercase;font-weight:500}
-    .hero-copy{max-width:440px;justify-self:end;margin-bottom:12px}
-    .hero-copy p{font-size:20px;line-height:1.5;color:rgba(0,0,0,.66);font-weight:400}
-    .buttons{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+    .hero-content{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,.38fr);gap:56px;align-items:end;flex:1;padding:clamp(112px,13vh,160px) 0 clamp(28px,5vh,46px);min-height:0}
+    .pill{display:inline-flex;align-items:center;gap:14px;margin-bottom:24px;font-size:12px;line-height:1;text-transform:uppercase;letter-spacing:.18em;color:rgba(0,0,0,.58)}
+    .pill:before{content:"";width:6px;height:6px;border-radius:999px;background:var(--orange)}
+    .hero h1{max-width:1120px;font-size:clamp(62px,8.15vw,138px);line-height:.86;letter-spacing:-.073em;text-transform:uppercase;font-weight:500;text-wrap:balance}
+    .hero-copy{max-width:420px;justify-self:end;margin-bottom:4px;padding-bottom:4px}
+    .hero-copy p{font-size:clamp(17px,1.4vw,20px);line-height:1.5;color:rgba(0,0,0,.66);font-weight:400}
+    .buttons{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
     .btn{border-radius:999px;padding:13px 20px;font-size:14px;font-weight:500;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--ink);transition:background .2s ease,color .2s ease,border-color .2s ease}
     .primary{background:var(--orange);border-color:var(--orange);color:#fff}
-    .primary:hover{background:#e84e17;border-color:#e84e17}
+    .primary:hover{background:#dc7a00;border-color:#dc7a00}
     .ghost{background:var(--ink);border-color:var(--ink);color:#fff}
     .ghost:hover{background:#000;border-color:#000}
-    .hero-meta{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--line);padding-top:16px;font-size:12px;text-transform:uppercase;letter-spacing:.18em;color:var(--muted);overflow:hidden}
+    .hero-meta{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;border-top:1px solid var(--line);padding-top:14px;overflow:hidden}
+    .hero-meta p{font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,0,0,.46);font-family:'Inter',sans-serif}
     .hero-meta p:nth-child(3){text-align:right;position:relative}
     .hero-meta strong{color:var(--ink);font-weight:500}
     .meta-watermark{position:absolute;right:0;top:-42px;font-size:120px;font-weight:700;letter-spacing:-.08em;opacity:.04;pointer-events:none}
@@ -69,13 +71,13 @@
     .section-heading>p{max-width:430px;color:rgba(0,0,0,.58);line-height:1.6}
 
     .projects-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;margin-top:36px}
-    .project-card{position:relative;background:#fff;border:1px solid var(--line);border-radius:28px;overflow:hidden;transition:transform .25s ease,border-color .25s ease,background .25s ease}
-    .project-card:hover{transform:translateY(-4px);border-color:rgba(255,90,31,.22);background:#fffdf9}
+    .project-card{position:relative;background:#fff;border:1px solid var(--line);border-radius:28px;overflow:hidden;transition:transform .25s ease,border-color .25s ease,background .25s ease,box-shadow .25s ease}
+    .project-card:hover{transform:translateY(-4px);border-color:rgba(255,140,0,.22);background:#fffdf9}
     .large{grid-column:span 12}
     .medium{grid-column:span 6}
     .small{grid-column:span 4}
 
-    .project-visual,.project-visual.compact,.project-visual.light{position:relative;min-height:340px;background:#151515;color:#fff;padding:26px;overflow:hidden;border:0}
+    .project-visual,.project-visual.compact,.project-visual.light{position:relative;min-height:360px;background:#151515;color:#fff;padding:26px;overflow:hidden;border:0}
     .project-visual.light{background:#efebe3;color:var(--ink)}
     .project-visual.light .project-top{color:rgba(0,0,0,.45)}
     .project-visual.light .project-title span{color:var(--orange)}
@@ -92,7 +94,7 @@
     .project-title{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;height:100%;padding-top:90px}
     .compact .project-title{padding-top:60px}
     .project-title span{display:inline-flex;align-self:flex-start;margin-bottom:14px;font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:rgba(255,255,255,.72)}
-    .project-title h3{font-size:56px;line-height:.9;letter-spacing:-.06em;text-transform:uppercase;font-weight:500;max-width:760px;color:#fff}
+    .project-title h3{font-size:56px;line-height:.9;letter-spacing:-.055em;text-transform:uppercase;font-weight:500;max-width:760px;color:#fff}
     .small .project-title h3{font-size:40px}
 
     .project-info{display:grid;grid-template-columns:.38fr .62fr;gap:28px;padding:24px 26px 26px;grid-column:auto}
@@ -116,15 +118,21 @@
     .about-list div{border:0;border-bottom:1px solid var(--line);border-radius:0;padding:18px 0;background:transparent;font-size:14px;line-height:1.5;color:rgba(0,0,0,.58)}
 
     .contact{padding:0 40px 40px}
-    .contact-box{background:var(--ink);color:#fff;border-radius:0;padding:40px;display:grid;grid-template-columns:1fr .48fr;gap:64px;align-items:end}
+    .contact-box{background:var(--ink);color:#fff;border-radius:28px;padding:40px;display:grid;grid-template-columns:1fr .48fr;gap:64px;align-items:end}
     .contact h2{font-size:8vw;line-height:.88;letter-spacing:-.07em;text-transform:uppercase;font-weight:500}
     .contact p{font-size:19px;line-height:1.5;color:rgba(255,255,255,.74)}
     .white{background:#fff;color:var(--ink);border-color:#fff}
     .orange-outline{border:1px solid var(--orange);color:#fff;background:transparent}
-    .orange-outline:hover{background:var(--orange);color:#fff}
+    .orange-outline:hover{background:var(--orange);color:#fff;border-color:var(--orange)}
 
     .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
     .reveal.visible{opacity:1;transform:translateY(0)}
+
+    @media(max-width:1180px){
+      .hero-content{grid-template-columns:1fr;gap:34px;align-items:start;padding-top:clamp(112px,13vh,150px)}
+      .hero-copy{justify-self:start;max-width:560px}
+      .hero h1{max-width:940px;font-size:clamp(62px,11vw,126px)}
+    }
 
     @media(max-width:860px){
       .ticker{margin-left:20px!important;margin-right:20px!important}
@@ -132,9 +140,10 @@
       .header{padding-left:20px;padding-right:20px}
       .header nav{display:none}
       .hero-content,.section-heading,.dark-box,.about,.contact-box{grid-template-columns:1fr;gap:32px}
-      .hero-content{padding:130px 0 56px}
-      .hero h1{font-size:15vw}
-      .hero-copy{justify-self:start}
+      .hero{padding:0 20px 24px;min-height:100dvh}
+      .hero-content{padding:118px 0 36px;gap:28px}
+      .hero h1{font-size:clamp(52px,15vw,92px);line-height:.9;letter-spacing:-.07em}
+      .hero-copy{justify-self:start;max-width:100%;margin-bottom:0}
       .hero-meta{grid-template-columns:1fr}
       .hero-meta p:nth-child(n+2){display:none}
       .section-heading h2,.dark-box h2,.about h2{font-size:52px}
@@ -172,7 +181,7 @@
         </div>
 
         <div class="hero-copy">
-          <p>Branding, audiovisual, diseño editorial y experiencias digitales.</p>
+          <p>Diseño gráfico, dirección visual, audiovisual y piezas digitales para proyectos con identidad.</p>
           <div class="buttons">
             <a class="btn primary" href="#work">Ver proyectos</a>
             <a class="btn ghost" href="mailto:hello@projectals.com">Contacto</a>
@@ -181,8 +190,8 @@
       </div>
 
       <div class="hero-meta">
-        <p style="font-weight:700;">ALEX LORENTE</p>
-        <p>Selected Work</p>
+        <p>ALEX LORENTE</p>
+        <p>Visual Portfolio</p>
         <p>2022 — 2026<span class="meta-watermark">ALS</span></p>
       </div>
     </section>
@@ -191,9 +200,9 @@
       <div class="section-heading reveal">
         <div>
           <p class="eyebrow">Selected Work</p>
-          <h2>Proyectos con criterio visual.</h2>
+          <h2>Trabajos seleccionados.</h2>
         </div>
-        <p>Una selección enfocada en percepción visual: menos piezas, mejor dirección artística, más intención y una lectura más profesional.</p>
+        <p>Una selección de proyectos visuales, piezas editoriales, contenido audiovisual y sistemas gráficos.</p>
       </div>
 
       <div class="projects-grid">
@@ -201,54 +210,54 @@
           <div class="project-visual">
             <div class="glow glow-a"></div><div class="glow glow-b"></div><div class="texture"></div>
             <div class="project-top"><span>01</span><span>2026</span></div>
-            <div class="project-title"><span>Proyecto estratégico</span><h3>Identidad visual para música y cultura</h3></div>
+            <div class="project-title"><span>Identidad visual</span><h3>Música, cultura y espacios visuales</h3></div>
           </div>
-          <div class="project-info"><p>Branding / Editorial / Motion</p><div><p>Sistema visual contemporáneo para eventos, artistas y espacios culturales. Dirección gráfica, piezas sociales, cartelería y recursos animados.</p><span>↗</span></div></div>
+          <div class="project-info"><p>Branding / Editorial / Motion</p><div><p>Dirección gráfica, piezas sociales, cartelería y recursos animados para artistas, eventos y proyectos culturales.</p><span>↗</span></div></div>
         </article>
 
         <article class="project-card medium reveal">
           <div class="project-visual light">
             <div class="paper-lines"></div>
             <div class="project-top"><span>02</span><span>2025</span></div>
-            <div class="project-title"><span>Trabajo real</span><h3>Conciertos, reels y piezas audiovisuales</h3></div>
+            <div class="project-title"><span>Audiovisual</span><h3>Conciertos, reels y piezas verticales</h3></div>
           </div>
-          <div class="project-info"><p>Audiovisual / Reels / Art Direction</p><div><p>Cobertura de conciertos, piezas verticales, fotografía de ambiente y narrativa visual para artistas, salas y proyectos culturales.</p><span>↗</span></div></div>
+          <div class="project-info"><p>Audiovisual / Reels / Art Direction</p><div><p>Contenido audiovisual para directos, salas y artistas, con foco en ritmo, atmósfera y narrativa visual.</p><span>↗</span></div></div>
         </article>
 
         <article class="project-card medium reveal">
           <div class="project-visual">
             <div class="glow glow-a"></div><div class="glow glow-b"></div><div class="texture"></div>
             <div class="project-top"><span>03</span><span>2026</span></div>
-            <div class="project-title"><span>Dirección artística</span><h3>Sistemas editoriales y posters</h3></div>
+            <div class="project-title"><span>Editorial</span><h3>Posters, composición y sistemas gráficos</h3></div>
           </div>
-          <div class="project-info"><p>Poster Design / Typography</p><div><p>Exploraciones gráficas basadas en tipografía, composición editorial, ritmo visual, imagen y dirección artística contemporánea.</p><span>↗</span></div></div>
+          <div class="project-info"><p>Poster Design / Typography</p><div><p>Exploraciones visuales basadas en composición, tipografía, contraste, imagen y ritmo editorial.</p><span>↗</span></div></div>
         </article>
 
         <article class="project-card small reveal">
           <div class="project-visual compact light">
             <div class="paper-lines"></div>
             <div class="project-top"><span>04</span><span>2022–2025</span></div>
-            <div class="project-title"><span>Archivo curado</span><h3>Packaging & aplicaciones de marca</h3></div>
+            <div class="project-title"><span>Aplicaciones</span><h3>Packaging y piezas de marca</h3></div>
           </div>
-          <div class="project-info"><p>Packaging / Commercial Design</p><div><p>Selección de trabajos comerciales recontextualizados como aplicaciones visuales dentro de un sistema gráfico.</p><span>↗</span></div></div>
+          <div class="project-info"><p>Packaging / Commercial Design</p><div><p>Trabajos comerciales seleccionados y presentados desde una lectura más visual, gráfica y aplicada.</p><span>↗</span></div></div>
         </article>
 
         <article class="project-card small reveal">
           <div class="project-visual compact">
             <div class="glow glow-a"></div><div class="texture"></div>
             <div class="project-top"><span>05</span><span>2026</span></div>
-            <div class="project-title"><span>Background técnico</span><h3>Experiencias digitales</h3></div>
+            <div class="project-title"><span>Digital</span><h3>Web, interacción y experiencias digitales</h3></div>
           </div>
-          <div class="project-info"><p>Web / Interactive / Multimedia</p><div><p>Landings, interfaces, prototipos y experiencias interactivas con sensibilidad gráfica y comprensión técnica.</p><span>↗</span></div></div>
+          <div class="project-info"><p>Web / Interactive / Multimedia</p><div><p>Landings, interfaces y prototipos donde la parte visual y la parte técnica trabajan juntas.</p><span>↗</span></div></div>
         </article>
 
         <article class="project-card small reveal">
           <div class="project-visual compact">
             <div class="glow glow-a"></div><div class="glow glow-b"></div><div class="texture"></div>
             <div class="project-top"><span>06</span><span>En segundo plano</span></div>
-            <div class="project-title"><span>Multimedia</span><h3>Game & interactive design</h3></div>
+            <div class="project-title"><span>Multimedia</span><h3>Game design e interacción</h3></div>
           </div>
-          <div class="project-info"><p>Unity / Prototyping / UI</p><div><p>El mundo de videojuegos aparece como base técnica y diferencial, no como el foco principal del portfolio.</p><span>↗</span></div></div>
+          <div class="project-info"><p>Unity / Prototyping / UI</p><div><p>Proyectos interactivos y videojuegos como base técnica secundaria dentro de un perfil visual más amplio.</p><span>↗</span></div></div>
         </article>
       </div>
     </section>
@@ -257,7 +266,7 @@
       <div class="dark-box">
         <div>
           <p class="eyebrow orange">Capabilities</p>
-          <h2>Diseño con actitud audiovisual.</h2>
+          <h2>Diseño, imagen y movimiento.</h2>
         </div>
         <div class="services">
           <div>Identidad visual</div><div>Diseño editorial</div><div>Motion graphics</div><div>Contenido audiovisual</div><div>Sistemas de posters</div><div>Experiencias digitales</div><div>Dirección de arte</div><div>Visuales para redes</div>
@@ -268,23 +277,23 @@
     <section id="about" class="about reveal">
       <div>
         <p class="eyebrow">Perfil</p>
-        <h2>No es un portfolio clásico.</h2>
+        <h2>Diseñador visual y multimedia.</h2>
       </div>
       <div class="about-copy">
-        <p>Soy diseñador multimedia y visual designer. Trabajo entre identidad visual, contenido audiovisual, diseño editorial, motion y experiencias digitales.</p>
-        <p>Mi background técnico en Unity, web y multimedia me permite entender sistemas interactivos, pero el foco principal de este portfolio es la dirección visual contemporánea.</p>
+        <p>Soy Alex Lorente, diseñador visual y multimedia. Trabajo entre diseño gráfico, audiovisual, editorial, motion y experiencias digitales.</p>
+        <p>Mi parte técnica me permite construir piezas digitales e interactivas, pero el foco de este portfolio está en la dirección visual y la comunicación gráfica.</p>
         <div class="about-list">
-          <div>Diseño con intención: jerarquía, ritmo, contraste, tono y coherencia visual.</div>
-          <div>Perfil híbrido: sensibilidad gráfica, cultura audiovisual y capacidad técnica para llevar ideas a producción.</div>
+          <div>Diseño con jerarquía, ritmo, contraste, tono y coherencia visual.</div>
+          <div>Perfil híbrido: sensibilidad gráfica, cultura audiovisual y capacidad técnica para producir.</div>
         </div>
       </div>
     </section>
 
     <section id="contact" class="contact reveal">
       <div class="contact-box">
-        <h2>Construyamos algo visual.</h2>
+        <h2>Hagamos algo visual.</h2>
         <div>
-          <p>Disponible para proyectos de branding, audiovisual, motion, editorial y dirección visual para marcas, artistas y espacios culturales.</p>
+          <p>Disponible para proyectos de diseño gráfico, audiovisual, motion, editorial y dirección visual.</p>
           <div class="buttons">
             <a class="btn white" href="mailto:hello@projectals.com">hello@projectals.com</a>
             <a class="btn orange-outline" href="#work">Ver selección</a>
