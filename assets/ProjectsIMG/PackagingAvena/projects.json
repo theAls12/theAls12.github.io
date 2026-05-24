@@ -1,0 +1,111 @@
+{
+  "hophop": {
+    "title": "Boxeo HOP HOP",
+    "year": "2025",
+    "category": "Grabación / Edición Video",
+    "client": "Noche de Velada",
+    "short": "Cobertura audiovisual y edición cinematográfica de una velada de boxeo.",
+    "long": "Cobertura audiovisual y edición cinematográfica para una velada de boxeo centrada en energía, ritmo y narrativa visual.",
+    "gallery": [
+      "HopHop(2).mp4",
+      "HopHop(3).mp4"
+    ]
+  },
+
+  "packagingavena": {
+    "title": "Dr Kings",
+    "year": "2025",
+    "category": "Packaging / Branding",
+    "client": "Packaging Avena",
+    "short": "Diseño de packaging y dirección visual para producto alimentario.",
+    "long": "Diseño de packaging, branding y presentación visual del producto.",
+    "gallery": [
+      "Avena(2).webp",
+      "Avena(3).webp",
+      "Avena(4).webp"
+    ]
+  },
+
+  "cabrils": {
+    "title": "Festival Cabrils",
+    "year": "2025",
+    "category": "Grabación / Edición Video",
+    "client": "3 Aftermovies",
+    "short": "Grabación y edición audiovisual para festival musical.",
+    "long": "Producción audiovisual y creación de aftermovies centrados en atmósfera, público y ritmo.",
+    "gallery": [
+      "Cabrils(2).mp4",
+      "Cabrils(3).mp4",
+      "Cabrils(4).mp4"
+    ]
+  },
+
+  "concabeza": {
+    "title": "Con Cabeza Podcast",
+    "year": "2023",
+    "category": "Modelado 3D / Animación",
+    "client": "Intro Opening",
+    "short": "Opening 3D desarrollado para identidad visual de podcast.",
+    "long": "Animación y modelado 3D desarrollado como pieza de apertura para podcast.",
+    "gallery": [
+      "ConCabeza(2).mp4",
+      "ConCabeza(3).webp"
+    ]
+  },
+
+  "ggj": {
+    "title": "Global Game Jam",
+    "year": "2023",
+    "category": "Game Development / Unity",
+    "client": "The Root Way",
+    "short": "Videojuego desarrollado en 48 horas.",
+    "long": "Proyecto desarrollado durante la Global Game Jam con enfoque en gameplay y narrativa.",
+    "gallery": [
+      "GGJ(2).mp4",
+      "GGJ(3).webp",
+      "GGJ(4).webp",
+      "GGJ(5).webp"
+    ]
+  },
+
+  "posters": {
+    "title": "Posters",
+    "year": "2022",
+    "category": "Editorial / Diseño gráfico",
+    "client": "JDM Cars",
+    "short": "Serie editorial inspirada en cultura automovilística japonesa.",
+    "long": "Exploraciones visuales centradas en composición, tipografía y lenguaje editorial.",
+    "gallery": [
+      "Posters(2).webp",
+      "Posters(3).webp",
+      "Posters(4).webp"
+    ]
+  },
+
+  "vivi": {
+    "title": "Fan Art Vivi",
+    "year": "2022",
+    "category": "Modelado / Esculpido 3D",
+    "client": "Final Fantasy",
+    "short": "Modelado y acabado 3D inspirado en Vivi.",
+    "long": "Fan art realizado mediante modelado, escultura y renderizado 3D.",
+    "gallery": [
+      "Vivi(2).webp",
+      "Vivi(3).webp"
+    ]
+  },
+
+  "websang": {
+    "title": "Banc de Sang i Teixits",
+    "year": "2019",
+    "category": "Diseño Web / Branding",
+    "client": "Landing Page",
+    "short": "Diseño visual e interfaz para landing institucional.",
+    "long": "Diseño de interfaz y estructura visual para una landing institucional.",
+    "gallery": [
+      "WebSang(2).webp",
+      "WebSang(3).png",
+      "WebSang(4).png"
+    ]
+  }
+}
