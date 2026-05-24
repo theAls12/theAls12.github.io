@@ -105,10 +105,9 @@ async function loadProjectText(){
   nav();
 
   const paths=[
+    `${location.origin}/data/projects.json`,
     "./data/projects.json",
-    "data/projects.json",
-    "/data/projects.json",
-    "./projects.json"
+    "data/projects.json"
   ];
 
   for(const path of paths){
@@ -118,16 +117,18 @@ async function loadProjectText(){
 
       const data=await res.json();
       projectText={...projectText,...data};
+      document.documentElement.dataset.projects="loaded";
+      console.log("Projects JSON cargado:",path,data);
       renderProjects();
       reveal();
       nav();
-      console.log(`Projects JSON cargado desde: ${path}`);
       return;
     }catch(e){
-      console.warn(`No se pudo cargar: ${path}`,e);
+      console.warn("No se pudo cargar projects.json desde:",path,e);
     }
   }
 
+  document.documentElement.dataset.projects="fallback";
   console.warn("Projects JSON no cargado. Usando placeholders.");
 }
 $(".modal-close").onclick=closeProject;M.onclick=e=>{if(e.target===M)closeProject()};M.querySelector(".modal-panel").onclick=e=>e.stopPropagation();$(".lightbox-close").onclick=closeLightbox;$(".lightbox-prev").onclick=()=>move(-1);$(".lightbox-next").onclick=()=>move(1);L.onclick=e=>{if(e.target===L)closeLightbox()};addEventListener("keydown",e=>{if(e.key==="Escape")L.classList.contains("open")?closeLightbox():M.classList.contains("open")&&closeProject();if(e.key==="ArrowLeft")move(-1);if(e.key==="ArrowRight")move(1)});addEventListener("scroll",nav,{passive:true});addEventListener("load",nav);addEventListener("orientationchange",nav);loadProjectText();loader();hero();
