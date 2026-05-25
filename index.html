@@ -126,11 +126,6 @@ a:focus { outline: 0; }
   text-transform: uppercase;
 }
 
-
-.surface{overflow:hidden;border:1px solid var(--line);border-radius:var(--r);background:var(--surface,#fff)}
-.title{font-weight:500;line-height:.9;letter-spacing:-.06em;text-transform:uppercase}
-.grid-split{display:grid;gap:var(--gap,40px);grid-template-columns:minmax(0,1fr) minmax(260px,.42fr)}
-
 /* ================== HEADER ================== */
 .header {
   position: fixed;
@@ -227,8 +222,25 @@ a:focus { outline: 0; }
   transform: scale(1.04);
 }
 
-
+.hero-video.is-active { opacity: 1; }
 .hero-overlay { background: rgba(0, 0, 0, .46); }
+
+.site-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #050505;
+  transition: opacity .6s ease, visibility .6s ease;
+}
+
+.site-loader.hide {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
 
 .hero-content {
   position: relative;
@@ -876,7 +888,7 @@ html.modal-active { overflow: hidden; }
   object-fit: cover;
   border-radius: 18px;
   background: #ddd;
-  
+  cursor: zoom-in;
 }
 
 .modal-gallery .contain-media,
@@ -921,8 +933,8 @@ html.modal-active { overflow: hidden; }
   transition: transform .28s cubic-bezier(.16, 1, .3, 1);
 }
 
-
-
+.lightbox-media img { cursor: zoom-in; }
+.lightbox-media.zoomed img { cursor: move; }
 
 .lightbox-prev,
 .lightbox-next {
@@ -1352,7 +1364,28 @@ html.modal-active { overflow: hidden; }
   }
 }
 
+@media (max-width: 390px) {
+  .hero-content > div:first-child,
+  .pill,
+  .hero h1,
+  .hero-copy { max-width: 310px; }
 
+  .hero h1 { font-size: clamp(46px, 14vw, 54px); }
+  .hero-copy p { font-size: 15px; }
+
+  .hero .btn {
+    padding-inline: 10px;
+    font-size: 11px;
+  }
+
+  .section-heading h2,
+  .about h2 { font-size: 34px; }
+
+  .project-title h3,
+  .span-4 .project-title h3 { font-size: 28px; }
+
+  .contact h2 { font-size: 38px; }
+}
 
 /* ================== ACCESSIBILITY ================== */
 @media (prefers-reduced-motion: reduce) {
@@ -1381,14 +1414,13 @@ html.modal-active { overflow: hidden; }
 </style>
 </head>
 <body>
-
+<div class="site-loader" id="siteLoader" aria-hidden="true"></div>
 <main>
 <section id="top" class="hero">
   <div class="hero-video-stage" aria-hidden="true">
-    <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.jpg">
-      <source src="assets/hero-video-01.mp4" type="video/mp4">
-    </video>
-</div>
+    <video class="hero-video is-active" autoplay muted playsinline preload="metadata" poster="assets/hero-poster.jpg"><source src="assets/hero-video-01.mp4" type="video/mp4"></video>
+    <video class="hero-video" muted playsinline preload="none"><source src="assets/hero-video-02.mp4" type="video/mp4"></video>
+  </div>
   <div class="hero-overlay"></div>
   <header class="header">
     <a href="#top" class="brand">ALEX LORENTE</a>
@@ -1442,7 +1474,7 @@ const getYoutubeId=url=>{
  const match=url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&]+)/i);
  return match?match[1]:null;
 };
-
+const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 const asset=(folder,file)=>{
  if(isYoutube(file)) return file;
  return `assets/ProjectsIMG/${folder}/${file}`;
@@ -1463,39 +1495,46 @@ function lockPage(){lastScrollY=scrollY;document.documentElement.classList.add("
 function unlockPage(){document.documentElement.classList.remove("modal-active");requestAnimationFrame(()=>scrollTo({top:lastScrollY,behavior:"instant"}))}
 function reveal(){let items=$$(".reveal");if(!("IntersectionObserver"in window))return items.forEach(e=>e.classList.add("visible"));let io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");io.unobserve(e.target)}}),{threshold:.12});items.forEach(e=>io.observe(e))}
 function nav(){let point=innerHeight*.38,current="";[...$$("#work,#about,#contact")].forEach(s=>{let r=s.getBoundingClientRect();if(r.top<=point&&r.bottom>=point)current=s.id});$$(".nav a").forEach(a=>a.classList.toggle("active",a.hash==="#"+current))}
+function loader(){const loader=$("#siteLoader"),first=$$(".hero-video")[0];if(!loader)return;const hide=()=>loader.classList.add("hide");if(!first)return hide();if(first.readyState>=2)return setTimeout(hide,180);first.addEventListener("loadeddata",()=>setTimeout(hide,180),{once:true});first.addEventListener("canplay",()=>setTimeout(hide,180),{once:true});setTimeout(hide,1400)}
+function hero(){const videos=[...$$(".hero-video")];if(!videos.length)return;let current=0,swapping=false;videos.forEach(v=>{v.muted=true;v.playsInline=true;v.setAttribute("muted","");v.setAttribute("playsinline","")});const play=v=>v?.play?.().catch?.(()=>{});const prepare=i=>{if(videos.length<2)return;let n=(i+1)%videos.length;if(videos[n].dataset.prepared)return;videos[n].dataset.prepared="true";videos[n].preload="metadata";videos[n].load()};const swap=()=>{if(videos.length<2||swapping)return;swapping=true;let old=current;current=(current+1)%videos.length;videos[current].currentTime=0;videos[current].classList.add("is-active");play(videos[current]);prepare(current);setTimeout(()=>{videos[old].classList.remove("is-active");videos[old].pause();videos[old].currentTime=0;swapping=false},320)};videos.forEach((v,i)=>{v.addEventListener("ended",()=>i===current&&swap());v.addEventListener("error",()=>i===current&&swap())});play(videos[0]);videos[0].addEventListener("playing",()=>prepare(0),{once:true});videos[0].addEventListener("loadeddata",()=>prepare(0),{once:true});document.addEventListener("visibilitychange",()=>{if(!document.hidden&&!M.classList.contains("open"))play(videos[current])})}
 function openProject(id){const p=list.find(x=>x.id===id),t=projectText[id]||projectText.default;if(!p)return;F.img.src=p.cover;F.t.textContent=t.title;F.cat.textContent=t.category;F.y.textContent=t.year;F.ctx.textContent=t.client;F.long.textContent=t.long;gallery=(t.gallery||[]).map(file=>asset(p.folder,file));F.gal.innerHTML=gallery.map((src,i)=>mediaTag(src,i)).join("");if(p.folder==="WebSang")$$("#modalGallery img").forEach(img=>img.classList.add("contain-media"));if(p.folder==="Posters")$$("#modalGallery img").forEach(img=>img.classList.add("poster-media"));$$("[data-media]").forEach(el=>el.onclick=()=>openLightbox(+el.dataset.media));M.classList.add("open");M.setAttribute("aria-hidden","false");M.scrollTop=0;lockPage()}
 function closeProject(){closeLightbox();$$("#modalGallery video").forEach(v=>{v.pause();v.removeAttribute("src");v.load()});F.gal.innerHTML="";F.img.removeAttribute("src");M.classList.remove("open");M.setAttribute("aria-hidden","true");M.scrollTop=0;unlockPage()}
-
-function openLightbox(i){
-if(!gallery.length)return;
-
-index=i;
-
-const box=$("#lightboxMedia");
-
-box.innerHTML=
-isVideo(gallery[index])
-? `<video src="${esc(gallery[index])}" controls autoplay playsinline></video>`
-: `<img src="${esc(gallery[index])}">`;
-
-$("#lightboxCount").textContent=`${index+1} / ${gallery.length}`;
-
-L.classList.add("open");
-L.setAttribute("aria-hidden","false");
-}
-
+function openLightbox(i){if(!gallery.length)return;index=i;let box=$("#lightboxMedia"),scale=1,x=0,y=0,drag=false,moved=false,sx=0,sy=0,px=0,py=0;box.classList.remove("zoomed");box.innerHTML=isVideo(gallery[index])?`<video src="${esc(gallery[index])}" controls autoplay playsinline preload="auto"></video>`:`<img src="${esc(gallery[index])}" decoding="async">`;$("#lightboxCount").textContent=`${index+1} / ${gallery.length}`;let img=box.querySelector("img"),paint=()=>{if(img)img.style.transform=`translate3d(${x}px,${y}px,0) scale(${scale})`};if(img){img.onpointerdown=e=>{e.preventDefault();drag=true;moved=false;px=e.clientX;py=e.clientY;sx=e.clientX-x;sy=e.clientY-y;img.setPointerCapture(e.pointerId);img.style.transition="none"};img.onpointermove=e=>{if(!drag)return;let dx=e.clientX-px,dy=e.clientY-py;if(Math.abs(dx)+Math.abs(dy)>3)moved=true;if(scale>1){x=e.clientX-sx;y=e.clientY-sy;paint()}};img.onpointerup=e=>{drag=false;img.releasePointerCapture?.(e.pointerId);img.style.transition="transform .28s cubic-bezier(.16,1,.3,1)";if(!moved){scale=scale===1?2:1;x=y=0;box.classList.toggle("zoomed",scale>1);paint()}};box.onwheel=e=>{e.preventDefault();scale=Math.max(1,Math.min(3,scale-e.deltaY*.001));if(scale===1)x=y=0;box.classList.toggle("zoomed",scale>1);paint()}}L.classList.add("open");L.setAttribute("aria-hidden","false")}
 function closeLightbox(){L.classList.remove("open");L.setAttribute("aria-hidden","true");$("#lightboxMedia").innerHTML=""}
 function move(d){if(!gallery.length||!L.classList.contains("open"))return;openLightbox((index+d+gallery.length)%gallery.length)}
 async function loadProjectText(){
-try{
-const res=await fetch("./data/projects.json",{cache:"force-cache"});
-if(res.ok) projectText={...projectText,...await res.json()};
-}catch(e){}
-renderProjects();
-reveal();
-nav();
+  renderProjects();
+  reveal();
+  nav();
+
+  const paths=[
+    `${location.origin}/data/projects.json`,
+    "./data/projects.json",
+    "data/projects.json"
+  ];
+
+  for(const path of paths){
+    try{
+      const res=await fetch(`${path}?v=${Date.now()}`,{cache:"no-store"});
+      if(!res.ok)continue;
+
+      const data=await res.json();
+      projectText={...projectText,...data};
+      document.documentElement.dataset.projects="loaded";
+      console.log("Projects JSON cargado:",path,data);
+      renderProjects();
+      reveal();
+      nav();
+      return;
+    }catch(e){
+      console.warn("No se pudo cargar projects.json desde:",path,e);
+    }
+  }
+
+  document.documentElement.dataset.projects="fallback";
+  console.warn("Projects JSON no cargado. Usando placeholders.");
 }
-$(".modal-close").onclick=closeProject;M.onclick=e=>{if(e.target===M)closeProject()};M.querySelector(".modal-panel").onclick=e=>e.stopPropagation();$(".lightbox-close").onclick=closeLightbox;$(".lightbox-prev").onclick=()=>move(-1);$(".lightbox-next").onclick=()=>move(1);L.onclick=e=>{if(e.target===L)closeLightbox()};addEventListener("keydown",e=>{if(e.key==="Escape")L.classList.contains("open")?closeLightbox():M.classList.contains("open")&&closeProject();if(e.key==="ArrowLeft")move(-1);if(e.key==="ArrowRight")move(1)});addEventListener("scroll",nav,{passive:true});addEventListener("load",nav);addEventListener("orientationchange",nav);loadProjectText();$('.hero-video')?.play()?.catch(()=>{});
+$(".modal-close").onclick=closeProject;M.onclick=e=>{if(e.target===M)closeProject()};M.querySelector(".modal-panel").onclick=e=>e.stopPropagation();$(".lightbox-close").onclick=closeLightbox;$(".lightbox-prev").onclick=()=>move(-1);$(".lightbox-next").onclick=()=>move(1);L.onclick=e=>{if(e.target===L)closeLightbox()};addEventListener("keydown",e=>{if(e.key==="Escape")L.classList.contains("open")?closeLightbox():M.classList.contains("open")&&closeProject();if(e.key==="ArrowLeft")move(-1);if(e.key==="ArrowRight")move(1)});addEventListener("scroll",nav,{passive:true});addEventListener("load",nav);addEventListener("orientationchange",nav);loadProjectText();loader();hero();
 </script>
 </body>
 </html>
