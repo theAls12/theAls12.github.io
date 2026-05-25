@@ -3,14 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-
 <title>Alex Lorente — Visual Portfolio</title>
-
-<meta name="description"
-content="Portfolio visual de Alex Lorente. Diseño gráfico, audiovisual, motion, 3D y experiencias digitales.">
-
+<meta name="description" content="Portfolio visual de Alex Lorente. Diseño gráfico, audiovisual, motion, 3D y experiencias digitales.">
 <link rel="stylesheet" href="styles.css">
-
 </head>
 <body>
 <div class="site-loader" id="siteLoader" aria-hidden="true"></div>
@@ -67,23 +62,11 @@ let projectText={
 const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s),M=$("#projectModal"),L=$("#mediaLightbox"),F={img:$("#modalImage"),t:$("#modalTitle"),cat:$("#modalType"),y:$("#modalYear"),ctx:$("#modalContext"),long:$("#modalLongDescription"),gal:$("#modalGallery")};
 let gallery=[],index=0,lastScrollY=0;
 const esc=v=>String(v??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
-const isVideo=s=>/\.(mp4|webm|mov)(\?.*)?$/i.test(s);
-const isExternal=s=>/^https?:\/\//i.test(s);
-const isYoutube=s=>/youtube\.com|youtu\.be/i.test(s);
+const isVideo=s=>/\.(mp4|webm|mov)$/i.test(s);
 const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
-const asset=(folder,file)=>isExternal(file)?file:`assets/ProjectsIMG/${folder}/${file}`;
-const youtubeEmbed=url=>{
-  try{
-    const u=new URL(url);
-    const id=u.hostname.includes("youtu.be")?u.pathname.slice(1):u.searchParams.get("v");
-    return id?`https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`:url;
-  }catch(e){return url}
-};
+const asset=(folder,file)=>`assets/ProjectsIMG/${folder}/${file}`;
 const list=projects.map((p,i)=>({...p,n:String(i+1).padStart(2,"0"),cover:asset(p.folder,p.cover)}));
-const mediaTag=(src,i="")=>{
-  if(isYoutube(src))return `<iframe src="${esc(youtubeEmbed(src))}" title="Vídeo de proyecto" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
-  return isVideo(src)?`<video src="${esc(src)}" controls playsinline muted preload="none" data-media="${i}"></video>`:`<img src="${esc(src)}" loading="lazy" decoding="async" data-media="${i}">`;
-};
+const mediaTag=(src,i="")=>isVideo(src)?`<video src="${esc(src)}" controls playsinline muted preload="none" data-media="${i}"></video>`:`<img src="${esc(src)}" loading="lazy" decoding="async" data-media="${i}">`;
 function renderProjects(){
   $("#workGrid").innerHTML=list.map(p=>{const t=projectText[p.id]||projectText.default;return `<article class="card ${p.span} reveal" data-project="${p.id}"><div class="visual${p.span==='span-4'?' compact':''}"><img class="visual-media" src="${esc(p.cover)}" loading="lazy" decoding="async"><div class="project-top"><span>${p.n}</span><span>${esc(t.year)}</span></div><div class="project-title"><span>${esc(t.client)}</span><h3>${esc(t.title)}</h3></div></div><div class="info"><p>${esc(t.category)}</p><div><p>${esc(t.short)}</p><span>↗</span></div></div></article>`}).join("");
   $$("[data-project]").forEach(c=>c.onclick=()=>openProject(c.dataset.project));
@@ -94,7 +77,7 @@ function reveal(){let items=$$(".reveal");if(!("IntersectionObserver"in window))
 function nav(){let point=innerHeight*.38,current="";[...$$("#work,#about,#contact")].forEach(s=>{let r=s.getBoundingClientRect();if(r.top<=point&&r.bottom>=point)current=s.id});$$(".nav a").forEach(a=>a.classList.toggle("active",a.hash==="#"+current))}
 function loader(){const loader=$("#siteLoader"),first=$$(".hero-video")[0];if(!loader)return;const hide=()=>loader.classList.add("hide");if(!first)return hide();if(first.readyState>=2)return setTimeout(hide,180);first.addEventListener("loadeddata",()=>setTimeout(hide,180),{once:true});first.addEventListener("canplay",()=>setTimeout(hide,180),{once:true});setTimeout(hide,1400)}
 function hero(){const videos=[...$$(".hero-video")];if(!videos.length)return;let current=0,swapping=false;videos.forEach(v=>{v.muted=true;v.playsInline=true;v.setAttribute("muted","");v.setAttribute("playsinline","")});const play=v=>v?.play?.().catch?.(()=>{});const prepare=i=>{if(videos.length<2)return;let n=(i+1)%videos.length;if(videos[n].dataset.prepared)return;videos[n].dataset.prepared="true";videos[n].preload="metadata";videos[n].load()};const swap=()=>{if(videos.length<2||swapping)return;swapping=true;let old=current;current=(current+1)%videos.length;videos[current].currentTime=0;videos[current].classList.add("is-active");play(videos[current]);prepare(current);setTimeout(()=>{videos[old].classList.remove("is-active");videos[old].pause();videos[old].currentTime=0;swapping=false},320)};videos.forEach((v,i)=>{v.addEventListener("ended",()=>i===current&&swap());v.addEventListener("error",()=>i===current&&swap())});play(videos[0]);videos[0].addEventListener("playing",()=>prepare(0),{once:true});videos[0].addEventListener("loadeddata",()=>prepare(0),{once:true});document.addEventListener("visibilitychange",()=>{if(!document.hidden&&!M.classList.contains("open"))play(videos[current])})}
-function openProject(id){const p=list.find(x=>x.id===id),t=projectText[id]||projectText.default;if(!p)return;F.img.src=p.cover;F.t.textContent=t.title;F.cat.textContent=t.category;F.y.textContent=t.year;F.ctx.textContent=t.client;F.long.textContent=t.long;gallery=(t.gallery||[]).map(file=>asset(p.folder,file));F.gal.innerHTML=gallery.map((src,i)=>mediaTag(src,i)).join("");if(p.folder==="WebSang")$$("#modalGallery img").forEach(img=>{if(/\.png(\?|$)/i.test(img.getAttribute("src")||""))img.classList.add("contain-media")});if(p.folder==="Posters")$$("#modalGallery img").forEach(img=>img.classList.add("poster-media"));$$("[data-media]").forEach(el=>el.onclick=()=>openLightbox(+el.dataset.media));M.classList.add("open");M.setAttribute("aria-hidden","false");M.scrollTop=0;lockPage()}
+function openProject(id){const p=list.find(x=>x.id===id),t=projectText[id]||projectText.default;if(!p)return;F.img.src=p.cover;F.t.textContent=t.title;F.cat.textContent=t.category;F.y.textContent=t.year;F.ctx.textContent=t.client;F.long.textContent=t.long;gallery=(t.gallery||[]).map(file=>asset(p.folder,file));F.gal.innerHTML=gallery.map((src,i)=>mediaTag(src,i)).join("");if(p.folder==="WebSang")$$("#modalGallery img").forEach(img=>img.classList.add("contain-media"));if(p.folder==="Posters")$$("#modalGallery img").forEach(img=>img.classList.add("poster-media"));$$("[data-media]").forEach(el=>el.onclick=()=>openLightbox(+el.dataset.media));M.classList.add("open");M.setAttribute("aria-hidden","false");M.scrollTop=0;lockPage()}
 function closeProject(){closeLightbox();$$("#modalGallery video").forEach(v=>{v.pause();v.removeAttribute("src");v.load()});F.gal.innerHTML="";F.img.removeAttribute("src");M.classList.remove("open");M.setAttribute("aria-hidden","true");M.scrollTop=0;unlockPage()}
 function openLightbox(i){if(!gallery.length)return;index=i;let box=$("#lightboxMedia"),scale=1,x=0,y=0,drag=false,moved=false,sx=0,sy=0,px=0,py=0;box.classList.remove("zoomed");box.innerHTML=isVideo(gallery[index])?`<video src="${esc(gallery[index])}" controls autoplay playsinline preload="auto"></video>`:`<img src="${esc(gallery[index])}" decoding="async">`;$("#lightboxCount").textContent=`${index+1} / ${gallery.length}`;let img=box.querySelector("img"),paint=()=>{if(img)img.style.transform=`translate3d(${x}px,${y}px,0) scale(${scale})`};if(img){img.onpointerdown=e=>{e.preventDefault();drag=true;moved=false;px=e.clientX;py=e.clientY;sx=e.clientX-x;sy=e.clientY-y;img.setPointerCapture(e.pointerId);img.style.transition="none"};img.onpointermove=e=>{if(!drag)return;let dx=e.clientX-px,dy=e.clientY-py;if(Math.abs(dx)+Math.abs(dy)>3)moved=true;if(scale>1){x=e.clientX-sx;y=e.clientY-sy;paint()}};img.onpointerup=e=>{drag=false;img.releasePointerCapture?.(e.pointerId);img.style.transition="transform .28s cubic-bezier(.16,1,.3,1)";if(!moved){scale=scale===1?2:1;x=y=0;box.classList.toggle("zoomed",scale>1);paint()}};box.onwheel=e=>{e.preventDefault();scale=Math.max(1,Math.min(3,scale-e.deltaY*.001));if(scale===1)x=y=0;box.classList.toggle("zoomed",scale>1);paint()}}L.classList.add("open");L.setAttribute("aria-hidden","false")}
 function closeLightbox(){L.classList.remove("open");L.setAttribute("aria-hidden","true");$("#lightboxMedia").innerHTML=""}
