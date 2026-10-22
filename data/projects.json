@@ -107,5 +107,14 @@
       "WebSang(3).png",
       "WebSang(4).png"
     ]
+  },
+  "juegosshowreel2026": {
+    "title": "Juegos ShowReel 2026",
+    "year": "2026",
+    "category": "Showreel de videojuegos",
+    "client": "Portfolio personal",
+    "short": "Showreel personal con una selección de proyectos de videojuegos.",
+    "long": "Showreel personal con una selección de proyectos y piezas de videojuegos.",
+    "gallery": ["https://youtu.be/2jQ71Zg9RIo"]
   }
 }
