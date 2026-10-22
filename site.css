@@ -351,6 +351,10 @@ img,video {
   background:#151515;
   transition:transform .6s ease,opacity .4s ease}
 
+.visual-placeholder {display:grid;place-items:center;background:radial-gradient(ellipse at 50% 42%,#343331 0,#191919 48%,#101010 100%);color:#f2eee8}
+.visual-placeholder span {font-family:Georgia,"Times New Roman",serif;font-size:clamp(54px,8vw,112px);font-weight:400;letter-spacing:-.065em;text-align:center}
+.modal-hero.no-cover {background:radial-gradient(ellipse at 62% 28%,#343331 0,#191919 52%,#101010 100%)}
+
 .visual::after {
   content:"";
   position:absolute;
