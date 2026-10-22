@@ -865,7 +865,7 @@ html.modal-active {
   opacity:1;
   transform:none}
 
-.js .reveal {
+.reveal-ready .reveal {
   opacity:0;
   transform:translateY(18px);
   transition:opacity .7s ease,transform .7s ease}
