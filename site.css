@@ -343,6 +343,10 @@ img,video {
 .visual.compact {
   min-height:330px}
 
+@media (min-width:861px) {
+  .span-8 .visual {
+    min-height:330px}}
+
 .visual-media {
   position:absolute;
   inset:0;
@@ -971,6 +975,8 @@ html.modal-active {
 
 .visual,.visual.compact {
   min-height:330px}
+
+
 
 .info {
   grid-template-columns:1fr;
